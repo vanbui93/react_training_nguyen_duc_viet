@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Pacific rim",
+    "tel": "0908908765",
+    "Permission": 1
+  },
+  {
+    "id": 2,
+    "name": "Ronando",
+    "tel": "0965456321",
+    "Permission": 2
+  },
+  {
+    "id": 3,
+    "name": "Bùi Nhật Vũ",
+    "tel": "0912356846",
+    "Permission": 1
+  },
+  {
+    "id": 4,
+    "name": "Nguyễn Tiến Dũng",
+    "tel": "0321895631",
+    "Permission": 3
+  },
+  {
+    "id": 5,
+    "name": "Phan Văn Hậu",
+    "tel": "0987654236",
+    "Permission": 2
+  }
+]
