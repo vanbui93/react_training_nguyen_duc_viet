@@ -8,11 +8,13 @@ class noteItems extends Component {
     // ham lay nội dung truyền vào trong store, để store update vào dữ liệu 
     // console.log(this.props.noteEdit);  //--> action 2
     this.props.getEditData(this.props.noteEdit);
+    
 
   }
 
   getDeleteData =() => {
-    this.props.getDeleteData(this.props.noteEdit.id)
+    this.props.getDeleteData(this.props.noteEdit.id);
+    this.props.alertOn("Xóa thành công ghi chú  '"+ this.props.noteEdit.title + "'","danger"); 
     
   }
 
@@ -62,7 +64,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch({
         type: "DELETE_OBJECT", deleteId
       })
-    }
+    },
+    alertOn: (alertContent,alertType) => {
+      dispatch({
+        type: "ALERT_ON",alertContent,alertType
+      })
+    },
   }
 }
 

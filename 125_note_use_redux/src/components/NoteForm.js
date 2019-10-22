@@ -46,19 +46,20 @@ class NoteForm extends Component {
       editObject.title = this.state.noteTitle;
       this.props.editDataStore(editObject);
       this.props.changeEditState(); // Tắt form đi
+      this.props.alertOn("Đã sửa thành công","success");
       
     } else {
       var item ={};
       item.title = title;
       item.content = content;
       this.props.addDataStore(item);
-      this.props.changeAddState(); // Tắt form đi
+      this.props.alertOn("Đã thêm mới thành công","warning");
     }
   }
   printTitle = () => {
     if(this.props.addState){
       return <h3>Thêm mới ghi chú</h3>
-    } else{
+    } else {
       return <h3>Sửa ghi chú</h3>
     }
   }
@@ -111,9 +112,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         type: "change_isEdit"
       })
     },
-    changeAddState: () => {
+    alertOn: (alertContent,alertType) => {
       dispatch({
-        type: "change_isAdd"
+        type: "ALERT_ON",alertContent,alertType
+      })
+    },
+    alertOff: () => {
+      dispatch({
+        type: "ALERT_OFF"
       })
     }
   }

@@ -8,9 +8,11 @@ var redux = require('redux');
 const noteInitialState = {
   isEdit : false,
   editItem: {},
-  isAdd: false
+  isAdd: false,
+  alertShow: false,
+  AlertContent: '',
+  AlertType: ''
 }
-
 
 
 // thực thi dispatch
@@ -20,7 +22,7 @@ const allReducer = (state = noteInitialState, action) => {
     // dưới là reducer (thuc thi) cach su dung giống như hàm
     case "ADD_DATA":
       noteDulieu.push(action.getItem);
-      console.log('them du lieu thanh cong tham so truyen vao la' + JSON.stringify(action.getItem));
+      // console.log('them du lieu thanh cong tham so truyen vao la' + JSON.stringify(action.getItem));
       break
     case "change_isEdit":
       return {...state,isEdit:!state.isEdit}
@@ -34,12 +36,16 @@ const allReducer = (state = noteInitialState, action) => {
         title: action.getItem.title,
         content: action.getItem.content
       })
-      console.log('Đã kết nối dữ liệu' + JSON.stringify(action.getItem) + 'thành công');
+      // console.log('Đã kết nối dữ liệu' + JSON.stringify(action.getItem) + 'thành công');
     return {...state,editItem:{}}
     case "DELETE_OBJECT":
       // child là hàm lấy ra phần tử có id tương ứng, sau đó update
-      console.log(action.deleteId);
+      // console.log(action.deleteId);
       noteDulieu.child(action.deleteId).remove();
+    case "ALERT_ON":
+      return {...state,alertShow:true,AlertContent:action.alertContent,AlertType:action.alertType}
+    case "ALERT_OFF":
+      return {...state,alertShow:false}
     default:
       return state
   }
