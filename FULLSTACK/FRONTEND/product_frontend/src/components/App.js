@@ -3,12 +3,13 @@ import './App.css';
 import Header from './Header';
 import Product from './Product';
 import axios from 'axios';
+import AddProduct from './AddProduct';
 
 // khai báo 1 hàm để lấy dữ liệu
 const getProductData = () => {
-  return axios.get('http://localhost:4000/getdata01')
-  .then((response) => response.data)
-  .catch((error) => error)
+  return axios.get('/getdata01')
+  .then((response) => response.data) // gọi là promise - lời hứa, thực hiện được cái trên thì trả về res
+  .catch((error) => error)  // Nếu lỗi thì trả về catch
 }
 
 class App extends React.Component {
@@ -31,18 +32,29 @@ class App extends React.Component {
     }
   }
   
+  printData =() => {
+    if(this.state.data !== null){
+      return this.state.data.map((value,key) => {
+        return (
+          <Product 
+          key={key} 
+          product_name={value.product_name} 
+          product_price={value.product_price} 
+          product_image={value.images}/>
+        )
+      })
+    }
+  }
   
   render() {
-   console.log(this.state.data)
+  //  console.log(this.state.data);
   return (
     <div>
       <Header/>
+      <AddProduct/>
       <div className="container">
       <div className="row">
-        <Product product_name="but chì" product_price="90000" product_image="https://sohanews.sohacdn.com/zoom/260_162/2019/10/29/xjskfyecfam0013978-157224805165883125939-1572311859518544572504-crop-15723118647041406799156.jpg"/>
-        <Product product_name="but chì" product_price="90000" product_image="https://sohanews.sohacdn.com/zoom/260_162/2019/10/29/xjskfyecfam0013978-157224805165883125939-1572311859518544572504-crop-15723118647041406799156.jpg"/>
-        <Product product_name="but chì" product_price="90000" product_image="https://sohanews.sohacdn.com/zoom/260_162/2019/10/29/xjskfyecfam0013978-157224805165883125939-1572311859518544572504-crop-15723118647041406799156.jpg"/>
-        <Product product_name="but chì" product_price="90000" product_image="https://sohanews.sohacdn.com/zoom/260_162/2019/10/29/xjskfyecfam0013978-157224805165883125939-1572311859518544572504-crop-15723118647041406799156.jpg"/>
+        {this.printData()}
       </div>
       </div>
     </div>

@@ -59,7 +59,7 @@ export default class NoteList extends Component {
           />
         )
       })
-    }
+    } 
   }
 
   render() {
