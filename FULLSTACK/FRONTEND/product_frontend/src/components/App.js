@@ -7,9 +7,12 @@ import AddProduct from './AddProduct';
 
 // khai báo 1 hàm để lấy dữ liệu
 const getProductData = () => {
+  // then gọi là promise - lời hứa, thực hiện được cái trên thì trả về response
   return axios.get('/getdata01')
-  .then((response) => response.data) // gọi là promise - lời hứa, thực hiện được cái trên thì trả về res
-  .catch((error) => error)  // Nếu lỗi thì trả về catch
+  .then((response) => response.data)
+  .catch((error) => {
+    console.log(error);
+  }) // Nếu lỗi thì trả về catch
 }
 
 class App extends React.Component {
