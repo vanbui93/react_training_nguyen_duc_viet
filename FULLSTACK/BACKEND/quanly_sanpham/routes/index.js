@@ -1,17 +1,17 @@
 var express = require('express');
 var router = express.Router();
-var pg = new require('pg');
+var pg = require('pg');
 //var pg = require('pg').native
 
-var conString = "postgres://foxhbfvd:9FhkukqPHQlEKBQd7ET-lQ4TTycyJbyY@salt.db.elephantsql.com:5432/foxhbfvd" //Can be found in the Details page
-var client = new pg.Client(conString);
+const urlSql = "postgres://foxhbfvd:9FhkukqPHQlEKBQd7ET-lQ4TTycyJbyY@salt.db.elephantsql.com:5432/foxhbfvd" //Can be found in the Details page
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {});
 
 // connect api đến trang con
 router.get('/getdata01', function(req, res, next) {
-  
+  const client = new pg.Client(urlSql);
   client.connect(function(err) {
     if(err) {
       return console.error('could not connect to postgres', err);
@@ -21,11 +21,11 @@ router.get('/getdata01', function(req, res, next) {
         return console.error('error running query', error);
       } else {   // Nếu thành công trả về response
         
-        console.log(response.rows); //console chỉ xem được trên backend thôi
+        // console.log(response.rows); //console chỉ xem được trên backend thôi
         
         res.send(response.rows);  //send dữ liệu phía api
       }
-      // client.end(); // đóng cổng kết nói csdl
+      client.end(); // đóng cổng kết nói csdl
     });
   });
 });

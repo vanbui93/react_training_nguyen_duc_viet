@@ -11,7 +11,8 @@ const getProductData = () => {
   return axios.get('/getdata01')
   .then((response) => response.data)
   .catch((error) => {
-    console.log(error);
+    console.log(error.response);
+    return Promise.reject(error.response);
   }) // Nếu lỗi thì trả về catch
 }
 
@@ -37,15 +38,13 @@ class App extends React.Component {
   
   printData =() => {
     if(this.state.data !== null){
-      return this.state.data.map((value,key) => {
-        return (
+      return this.state.data.map((value,key) => (
           <Product 
           key={key} 
           product_name={value.product_name} 
           product_price={value.product_price} 
           product_image={value.images}/>
-        )
-      })
+        ))
     }
   }
   

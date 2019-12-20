@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 
-const addProductAction = (product_name,product_price,product_image) => {
-  return axios.post('/add',{product_name,product_price,product_image}) ///nếu là get thì ko cần có tham số, nếu là post thì phải có tham số send
-  .then((res)=> res.data);
-}
+const addProductAction = (product_name,product_price,product_image) => (
+  axios.post('/add',{product_name,product_price,product_image}) ///nếu là get thì ko cần có tham số, nếu là post thì phải có tham số send
+  .then((res)=> res.data))
 
 export default class AddProduct extends Component {
   constructor(props) {
@@ -26,9 +25,7 @@ export default class AddProduct extends Component {
 
   handleClick = () => {
     console.log(JSON.stringify(this.state));
-    var product_name = this.state.product_name;
-    var product_price = this.state.product_price;
-    var product_image = this.state.product_image;
+    var {product_name,product_price,product_image} = this.state;
 
     // nếu có kết quả trả về thì in ra giá trị
     addProductAction (product_name,product_price,product_image).then((response) => {
