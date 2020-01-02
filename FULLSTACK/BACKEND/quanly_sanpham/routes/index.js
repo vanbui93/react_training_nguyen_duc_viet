@@ -3,8 +3,8 @@ var router = express.Router();
 var pg = require('pg');
 //var pg = require('pg').native
 
-const urlSql = "postgres://foxhbfvd:9FhkukqPHQlEKBQd7ET-lQ4TTycyJbyY@salt.db.elephantsql.com:5432/foxhbfvd" //Can be found in the Details page
-
+const urlSql = "postgres://foxhbfvd:9FhkukqPHQlEKBQd7ET-lQ4TTycyJbyY@salt.db.elephantsql.com:5432/foxhbfvd"
+const client = new pg.Client(urlSql);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {});
@@ -25,7 +25,7 @@ router.get('/getdata01', function(req, res, next) {
         
         res.send(response.rows);  //send dữ liệu phía api
       }
-      client.end(); // đóng cổng kết nói csdl
+      // client.end(); // đóng cổng kết nói csdl
     });
   });
 });
@@ -37,19 +37,18 @@ router.get('/add', function(req, res, next) {
 
 // tạo router method="post"
 router.post('/add', function(req, res, next) {
-
   var product_name = req.body.product_name,
   product_price = req.body.product_price,
-  product_img = req.body.product_image;  //in du lieu nhap tu form ra
+  product_img = req.body.images;  //in du lieu nhap tu form ra
 
-  client.query("insert into product_info (product_name,product_price,images) values ($1,$2,$3)",
-  [product_name,product_price,product_img],(err,respon) => {
+  sql = "insert into product_info (product_name,product_price,images) values ($1,$2,$3)"
+  client.query(sql,[product_name,product_price,product_img],(err,response) => {
     if(err) {
       res.send(err);
     } else {
-      res.send('Gửi dữ liệu thành công ' + product_name + product_price + product_img);
+      res.send('Insert du lieu thanh cong ' + product_name + product_price + product_img);
     }
-  });
+  })
   
 });
 

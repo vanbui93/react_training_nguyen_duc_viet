@@ -4,18 +4,14 @@ import { connect } from 'react-redux';
 class noteItems extends Component {
   onClickAction = () => {
     this.props.changeEditState() //action 1
-
     // ham lay nội dung truyền vào trong store, để store update vào dữ liệu 
     // console.log(this.props.noteEdit);  //--> action 2
     this.props.getEditData(this.props.noteEdit);
-    
-
   }
 
   getDeleteData =() => {
     this.props.getDeleteData(this.props.noteEdit.id);
     this.props.alertOn("Xóa thành công ghi chú  '"+ this.props.noteEdit.title + "'","danger"); 
-    
   }
 
   render() {
