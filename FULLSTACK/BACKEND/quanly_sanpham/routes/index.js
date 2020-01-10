@@ -37,19 +37,20 @@ router.get('/add', function(req, res, next) {
 
 // tạo router method="post"
 router.post('/add', function(req, res, next) {
-  var product_name = req.body.product_name,
-  product_price = req.body.product_price,
-  product_img = req.body.images;  //in du lieu nhap tu form ra
-
-  sql = "insert into product_info (product_name,product_price,images) values ($1,$2,$3)"
-  client.query(sql,[product_name,product_price,product_img],(err,response) => {
-    if(err) {
-      res.send(err);
-    } else {
-      res.send('Insert du lieu thanh cong ' + product_name + product_price + product_img);
-    }
+  const client = new pg.Client(urlSql);
+  client.connect(function(err) {
+    var product_name = req.body.product_name,
+    product_price = req.body.product_price,
+    product_img = req.body.images;  //in du lieu nhap tu form ra
+    sql = "insert into product_info (product_name,product_price,images) values ($1,$2,$3)"
+    client.query(sql,[product_name,product_price,product_img],(err,response) => {
+      if(err) {
+        res.send(err);
+      } else {
+        res.send('Insert du lieu thanh cong ' + product_name + product_price + product_img);
+      }
+    })
   })
-  
 });
 
 module.exports = router;
